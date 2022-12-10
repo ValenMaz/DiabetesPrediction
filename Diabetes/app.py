@@ -43,8 +43,7 @@ class User(UserMixin, db.Model):
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-
-
+#Forms.py
 
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[InputRequired(), Length(min=4, max=15)])
@@ -57,7 +56,7 @@ class RegisterForm(FlaskForm):
     username = StringField('Username', validators=[InputRequired(), Length(min=4, max=15)])
     password = PasswordField('Password', validators=[InputRequired(), Length(min=8, max=80)])
 
-
+#views.py
 
 @app.route('/')
 def index():
