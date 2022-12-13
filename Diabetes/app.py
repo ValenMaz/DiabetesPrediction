@@ -17,6 +17,7 @@ from flask_bcrypt import Bcrypt
 from flask_bcrypt import generate_password_hash
 from flask_bcrypt import check_password_hash
 from flask_login import current_user
+from flask import request
 from datetime import datetime
 
 from flask_migrate import Migrate
@@ -51,6 +52,14 @@ class UserPredictions(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     date = db.Column(db.DateTime)
     result = db.Column(db.String(25))
+
+def __init__(self, user_id, date, result):
+   self.user_id = user_id
+   self.date = date
+   self.result = result
+   
+
+
 ############################################################################################################
 
 
@@ -140,6 +149,9 @@ def diabetes():
     return render_template("diabetes.html")
 
 
+
+
+
 @app.route('/logout')
 @login_required
 def logout():
@@ -221,11 +233,16 @@ def predictt():
 
 
        
-    return render_template('diab_result.html',  prediction_text='Patient has {}'.format(res_val))
+    return render_template('diab_result.html',  prediction_text='You have {}'.format(res_val))
 
 
 ############################################################################################################
+@app.route("/user", methods=['GET','POST'])
+@login_required
+def user():
+    predictions = UserPredictions.query.filter_by(user_id=current_user.id).all() 
 
+    return render_template("user.html", predictions=predictions)
 
 
 
