@@ -16,6 +16,9 @@ from sklearn.model_selection import train_test_split
 from flask_bcrypt import Bcrypt
 from flask_bcrypt import generate_password_hash
 from flask_bcrypt import check_password_hash
+from flask_login import current_user
+from datetime import datetime
+
 from flask_migrate import Migrate
 filename = 'diabetes-prediction-rfc-model.pkl'
 classifier = pickle.load(open(filename, 'rb'))
@@ -184,7 +187,7 @@ pickle.dump(classifier, open(filename, 'wb'))
 
 
 
-@app.route('/predictt', methods=['POST'])
+@app.route('/predictt', methods=['GET','POST'])
 def predictt():
     if request.method == 'POST':
         preg = request.form['pregnancies']
@@ -203,6 +206,18 @@ def predictt():
         res_val = "a high risk of Diabetes"
     else:
         res_val = "a low risk of Diabetes"
+    
+    
+    
+    date = datetime.now().strftime('%Y-%m-%d')
+    result = res_val
+
+    record = UserPredictions(user_id=current_user.id, date=date, result=result)
+
+
+    # Flask-SQLAlchemy magic adds record to database
+    db.session.add(record)
+    db.session.commit()
 
 
        
