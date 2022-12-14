@@ -190,17 +190,17 @@
 				<div class="collapse navbar-collapse" id="navbarCollapse">
 					<ul class="navbar-nav ml-auto">
 						<li class="nav-item">
-							<a class="nav-link" href="/user"> Welcome, {{ current_user.username }}</a>
+							<a class="nav-link" href="/user"> Prediction History</a>
 						</li>
-						<li class="nav-item active">
+						<li class="nav-item {% if request.path == '/dashboard' %} active {% endif %}">
 							<a class="nav-link" href="/dashboard">Get Started</a>
 						</li>
 
-						<li class="nav-item">
-							<a class="nav-link" href="/disindex">Disease Index</a>
+						<li class="nav-item {% if request.path == '/disindex' %} active {% endif %}">
+							<a class="nav-link" href="/disindex">Disease Info</a>
 						</li>
 
-						<li class="nav-item">
+						<li class="nav-item {% if request.path == '/diabetes' %} active {% endif %}">
 							<a class="nav-link" href="/diabetes">Diabetes</a>
 						</li>
 						<li class="nav-item">
@@ -217,9 +217,13 @@
 
 	{% endblock %}
 
+	<br>
+  	<hr>
+
 	<footer class="container">
-		<p>&copy;riskassess. All Rights Reserved</p>
+		<p style="text-align:center; vertical-align:middle">&copy;riskassess. All Rights Reserved</p>
 	</footer>
+
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
 		crossorigin="anonymous"></script>

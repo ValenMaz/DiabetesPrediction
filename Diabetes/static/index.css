@@ -110,9 +110,10 @@ nav {
     }
 
 footer {
-    background-color: #3f3f3f;
-    color: #d5d5d5;
-    padding-top: 2rem;
+    /* background-color: #d5d5d5; */
+    color:  #3f3f3f;
+    font-weight: bold;
+    /* background-color: #3f3f3f; */
 }
 
 hr.light {

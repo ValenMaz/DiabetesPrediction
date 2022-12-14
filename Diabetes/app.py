@@ -224,6 +224,8 @@ def predictt():
     date = datetime.now().strftime('%Y-%m-%d')
     result = res_val
 
+    
+
     record = UserPredictions(user_id=current_user.id, date=date, result=result)
 
 
