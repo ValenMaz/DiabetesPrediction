@@ -1,12 +1,12 @@
 import joblib
-from flask import Flask, render_template, redirect, url_for, request, session
+from flask import Flask, render_template, redirect, url_for, request
 from flask_bootstrap import Bootstrap
 from flask_security import current_user
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField
 from wtforms.validators import InputRequired, Email, Length
 from flask_sqlalchemy import SQLAlchemy
-from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import check_password_hash
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user
 import pandas as pd
 import pickle
@@ -187,6 +187,7 @@ y = df1['Outcome']
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=0)
 
 # Creating Random Forest Model
+#Fit the model on training set
 
 classifier = RandomForestClassifier(n_estimators=20)
 classifier.fit(X_train, y_train)
@@ -194,6 +195,9 @@ classifier.fit(X_train, y_train)
 # Creating a pickle file for the classifier
 filename = 'diabetes-prediction-rfc-model.pkl'
 pickle.dump(classifier, open(filename, 'wb'))
+accuracy = classifier.score(X_test, y_test)
+
+#print(accuracy)
 
 #####################################################################
 
